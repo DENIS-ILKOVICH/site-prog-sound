@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dark_style.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.0/lottie.min.js"></script>
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/static/images/logo1.png" type="image/png">
+    {% block title %}
+    {% if title %}
+    <title>SiteProgSound - {{ title }}</title>
+    {% else %}
+    <title>SiteProgSound</title>
+    {% endif %}
+    {% endblock %}
+
+</head>
+<body>
+{% block header %}
+{% endblock %}
+
+<div class="content">
+    <main class="main-layout">
+        <aside class="sidebar">
+            <a href="/">
+                <img class="logo-name-img" width="150" height="" src="/static/images/logo-name.png"></a>
+
+            <form class="search-music">
+                <input type="text" id="search-input" name="search" placeholder="{{content_ln['meta'][9]}}"
+                       autocomplete="off" data-message-list='{{content_ln["search_music"]["message"]|tojson}}'>
+            </form>
+
+            <div id="search-results-container" class="search-results-container">
+                <div id="search-results" class="search-results"></div>
+            </div>
+
+            <button class="hamburger-menu">
+                ☰
+            </button>
+
+            <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const hamburgerMenu = document.querySelector('.hamburger-menu');
+                const menuLinks = document.querySelector('.menu-links');
+
+                if (hamburgerMenu && menuLinks) {
+                    hamburgerMenu.addEventListener('click', () => {
+                        menuLinks.classList.toggle('active');
+                    });
+                }
+            });
+            </script>
+
+            <div class="menu-links">
+                <a class="main-home-href" href="{{ url_for(menu[0]['url']) }}"><img width="25"
+                                                                                    src="/static/images/home.png">{{menu[0].title
+                    }}</a>
+                {% if current_user.is_authenticated %}
+                <a class="show-playlist-href"><img width="25" src="/static/images/my-playlist.png">{{menu[3].title}}</a>
+                {% if playlist %}
+                <div id="playlist" class="listplaylist">
+                    <div class="playlist-user-href"><a href="{{url_for('playlist.playlist_user')}}">{{content_ln["meta"][2]}}</a>
+                    </div>
+                    {% for item in playlist[:10] %}
+                    <div class="playlist-item">
+                        <h3>{{ item.playlist_name }}</h3>
+                        {% if item.song_list %}
+                        <div class="song-list">
+                            <a href="{{url_for('playlist.music_pl_user', pl_id=item.playlist_id, name=item.playlist_name | replace(' ', '_'))}}">{{content_ln["meta"][2]}}</a>
+                            {% for mus in item.song_list %}
+                            <p class="mus-href"><a
+                                    href="{{ url_for('content.show_music', m_id=mus.id, name=mus.name) }}">{{
+                                mus.name }}</a></p>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        <div class="song-list">
+                            <p>{{content_ln["meta"][3]}}</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div id="playlist" class="listplaylist">{{content_ln["meta"][4]}}</div>
+                {% endif %}
+
+                <p><a href="#" class="create-playlist-href"><img width="25" src="/static/images/create-playlist.png">{{content_ln["meta"][5]}}</a>
+                </p>
+                <form id="create-playlist-form" action="{{ url_for('playlist.create_playlist') }}" method="post"
+                      class="create-playlist" style="display: none;"
+                      data-createpl-list='{{content_ln["create_playlist"]["message"]|tojson}}'>
+                    <input type="text" name="name" id="playlist-name" placeholder="{{content_ln['meta'][7]}}">
+                    <button type="submit">{{content_ln['meta'][8]}}</button>
+                </form>
+                <div class="login-section-mobile">
+                    <a href="{{ url_for(menu[2]['url']) }}" class="login-btn-mobile">{{ menu[2].title }}</a>
+                </div>
+                {% else %}
+                <a class="login-href" href="{{url_for('auth.login')}}"><img width="25"
+                                                                            src="/static/images/create-playlist.png">{{content_ln["meta"][5]}}</a>
+                <div class="login-section-mobile">
+                    <a href="{{ url_for(menu[1]['url']) }}" class="login-btn-mobile">{{ menu[1].title }}</a>
+                </div>
+                {% endif %}
+                <div class="settings" onclick="openModalSetting()">
+                    <img src="/static/images/gear5.png" width="35" height="35" alt="Настройки">
+                </div>
+
+                <div class="modal-setting" id="settingsModal" onclick="closeModalSetting(event)">
+                    <div class="modal-content" onclick="event.stopPropagation();">
+                        <h3>{{content_ln["settings"]["header"]}}</h3>
+
+                        <div class="setting-item">
+                            <h4>{{content_ln["settings"]["subheadings"][0]}}</h4>
+                            <div class="language-buttons">
+                                <img src="/static/images/ua.png" alt="Украiнська" class="lang-btn" data-lang="ua">
+                                <img src="/static/images/ru.png" alt="Русский" class="lang-btn" data-lang="ru">
+                                <img src="/static/images/en.png" alt="English" class="lang-btn" data-lang="en">
+                                <img src="/static/images/de.png" alt="Deutsch" class="lang-btn" data-lang="de">
+                            </div>
+                        </div>
+
+                        <button class="close-btn"
+                                onclick="closeModalSetting({ target: document.getElementById('settingsModal') })">
+                            ⨉
+                        </button>
+                    </div>
+                </div>
+
+                <script>
+                    function openModalSetting() {
+                        let modal = document.getElementById('settingsModal');
+                        modal.style.display = 'flex';
+                        setTimeout(() => modal.classList.add('show'), 10);
+                    }
+
+                    function closeModalSetting(event) {
+                        let modal = document.getElementById('settingsModal');
+                        if (event.target === modal) {
+                            modal.classList.remove('show');
+                            setTimeout(() => modal.style.display = 'none', 300);
+                        }
+                    }
+
+                </script>
+                <script>
+                    document.querySelectorAll('.lang-btn').forEach(function(button) {
+                        button.addEventListener('click', function() {
+                            const lang = button.getAttribute('data-lang');
+                            fetch(`/change_language/${lang}`, { method: 'GET' })
+                                setTimeout(() => {
+                               window.location.reload();
+                            }, 10);
+                        });
+                    });
+                </script>
+            </div>
+        </aside>
+
+        <section class="player-section">
+            <header class="player-header">
+                <div class="player">
+
+                    <button id="prev-track">
+                        <img src="/static/images/prev.png" alt="Previous">
+                    </button>
+                    <button id="play-pause-main" class="play-pause">
+                        <img src="/static/images/play.png" alt="Play/Pause">
+                    </button>
+                    <button id="next-track">
+                        <img src="/static/images/next.png" alt="Next">
+                    </button>
+
+                    <div id="current-track-info" class="track-info-label">{{content_ln["meta"][6]}}</div>
+
+                    <div class="container-progress">
+                        <span id="current-time" class="start-time">00:00</span>
+                        <input type="range" id="slider-progress" min="0" max="100" step="0.00001" value="0">
+                        <div class="track-time">
+                            <span id="duration-time" class="end-time">00:00</span>
+                        </div>
+                    </div>
+
+                    <div class="command-container">
+                        <button id="repeat-btn">
+                            <img src="/static/images/repeat-off.png" alt="Repeat">
+                        </button>
+                        <button id="shuffle-btn">
+                            <img src="/static/images/shuffle-off.png" alt="Shuffle">
+                        </button>
+                    </div>
+
+                    <div class="volume-control">
+                        <label for="volume-slider" class="volume-label"></label>
+                        <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.5">
+                    </div>
+                </div>
+
+
+                <div class="login-section">
+                    {% if current_user.is_authenticated %}
+                    <a href="{{ url_for(menu[2]['url']) }}" class="login-btn">{{ menu[2].title }}</a>
+                    {% else %}
+                    <a href="{{ url_for(menu[1]['url']) }}" class="login-btn">{{ menu[1].title }}</a>
+                    {% endif %}
+                </div>
+            </header>
+
+            <div class="content-area">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </section>
+
+    </main>
+</div>
+<div id="toast" class="toast">
+    <div id="toast-animation" class="toast-animation"></div>
+    <span id="toast-message"></span>
+</div>
+
+
+<script src="/static/js/index/audio_player.js"></script>
+
+<script src="/static/js/index/login_animation.js"></script>
+
+<script src="/static/js/index/site_search.js"></script>
+
+<script src="/static/js/index/playlist_animation.js"></script>
+<script src="/static/js/index/pl_item_animation.js"></script>
+
+<script src="/static/js/index/crpl_anm.js"></script>
+
+<script src="/static/js/index/crpl_anm_json.js"></script>
+
+
+</body>
+</html>
+
+

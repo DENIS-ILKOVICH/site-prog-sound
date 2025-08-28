@@ -1,0 +1,164 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class="music">
+    {% if author %}
+    {% for item in author %}
+    <div class="track">
+        <div class="track-cover-container">
+            <img class="track-cover" src="{{ url_for('.get_image', datatype='author', item_id=item.id) }}" alt="{{ item.name }}">
+        </div>
+        <div class="track-details">
+            <div class="track-name">{{ item.name }}</div>
+
+            <div class="track-info">
+                <div class="track-meta">
+                    <span><strong>{{ content_ln['show_author']['meta'][0] }}:</strong> {{ auditions_data }} </span>
+
+                    {%if first_track%}
+                    <span><strong>{{ content_ln['show_author']['meta'][1] }}:</strong>
+                        <a href="{{ url_for('.show_music', m_id=first_track.id, name=first_track.name | replace(' ', '_')) }}" class="music_href_albums">
+                            {{ first_track.artist }} - {{ first_track.name }}
+                        </a>
+                    </span>
+                    {%else%}
+                    <span><strong>{{ content_ln['show_author']['meta'][1] }}:</strong> None</span>
+                    {%endif%}
+
+                    {%if best_track%}
+                    <span><strong>{{ content_ln['show_author']['meta'][2] }}:</strong>
+                        <a href="{{ url_for('.show_music', m_id=best_track.id, name=best_track.name | replace(' ', '_')) }}" class="music_href_albums">
+                            {{ best_track.name }}
+                        </a>
+                    </span>
+                    {%else%}
+                    <span><strong>{{ content_ln['show_author']['meta'][2] }}:</strong> None</span>
+                    {%endif%}
+                    <strong>{{ content_ln['show_author']['meta'][3] }}:</strong>
+                        <div class="category-href-music">
+                            <a href="{{url_for('.show_music_category', category=best_genre)}}">{{best_genre }}</a>
+                        </div>
+                </div>
+            </div>
+
+            {% if albums %}
+            <div class="c-author-albums-slider-container">
+                {%if albums | length > 1%}
+                <p class="title-al">{{ content_ln['show_author']['meta'][5] }}:</p>
+                {%else%}
+                <p class="title-al">{{ content_ln['show_author']['meta'][4] }}:</p>
+                {%endif%}
+                <div class="slider">
+
+                    <div class="album-title" id="album-title">{{ albums[0].name }}</div>
+
+                    <a id="album-link"
+                       href="{{ url_for('.show_albums', al_id=albums[0].id, name=albums[0].name | replace(' ', '_')) }}">
+                        <img src="{{ url_for('.get_image', datatype='album', item_id=albums[0].id) }}"
+                             alt="{{ albums[0].name }}"
+                             class="main-image" id="main-image">
+                    </a>
+
+                    {% if albums|length > 1 %}
+                    <img src="{{ url_for('.get_image', datatype='album', item_id=albums[1].id) }}"
+                         alt="{{ albums[1].name }}"
+                         class="switch-image"
+                         id="switch-image"
+                         onclick="switchSlide()">
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+
+
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    <h1>{{ content_ln['show_author']['headers'][0] }}</h1>
+    <div class="c-author-music-container-category">
+        {% if music %}
+        {% for item in music %}
+        <div class="music-card" data-id="{{ item.id }}" data-artist="{{ item.artist }}" data-name="{{ item.name }}">
+            <div class="c-author-track-list-item">
+                <div class="c-author-track-thumbnail">
+                    <img src="{{ url_for('.get_image', datatype='music', item_id=item.id) }}" alt="{{ item.name }}">
+                    <div class="another-play-mus">
+                        <button class="play-pause-btn">
+                            <img src="/static/images/play3.png" alt="Play">
+                        </button>
+                    </div>
+                </div>
+                <a href="{{ url_for('.show_music', m_id=item.id, name=item.name| replace(' ', '_')) }}"
+                   class="c-author-track-list-item-link">
+                    <div class="c-author-track-list-details">
+                        <div class="c-author-track-name">{{ item.artist }} - {{ item.name }}</div>
+<!--                        <div class="c-author-track-category"> content_ln['meta'][0] :  item.category </div>-->
+                        <div class="c-author-track-duration">{{ content_ln['meta'][1] }}: {{ item.duration }}</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+
+        {% endif %}
+    </div>
+</div>
+
+<br><br><br><br><br>
+
+<script>
+    const images = [
+        {% for album in albums %}
+            {
+                main: "{{ url_for('.get_image', datatype='album', item_id=album.id) }}",
+                name: "{{ album.name }}",
+                link: "{{ url_for('.show_albums', al_id=album.id, name=album.name | replace(' ', '_')) }}"
+            }{% if not loop.last %},{% endif %}
+        {% endfor %}
+    ];
+
+    let currentSlide = 0;
+
+    function switchSlide() {
+        const slider = document.querySelector('.slider');
+        const mainImage = document.getElementById('main-image');
+        const switchImage = document.getElementById('switch-image');
+        const albumTitle = document.getElementById('album-title');
+        const albumLink = document.getElementById('album-link');
+
+        if (images.length <= 1) return;
+
+        slider.classList.add('transition');
+        albumTitle.classList.add('transition');
+
+        albumLink.style.pointerEvents = 'none';
+
+        setTimeout(() => {
+            currentSlide = (currentSlide + 1) % images.length;
+            mainImage.src = images[currentSlide].main;
+
+            const nextSlide = (currentSlide + 1) % images.length;
+            switchImage.src = images[nextSlide].main;
+
+            albumTitle.textContent = images[currentSlide].name;
+
+            albumLink.href = images[currentSlide].link;
+
+            setTimeout(() => {
+                albumTitle.classList.remove('transition');
+            }, 1000);
+            slider.classList.remove('transition');
+
+            setTimeout(() => {
+                albumLink.style.pointerEvents = 'auto';
+            }, 1000);
+        }, 1000);
+    }
+</script>
+
+
+{% endblock %}
+

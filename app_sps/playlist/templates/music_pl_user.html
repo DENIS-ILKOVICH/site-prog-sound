@@ -1,0 +1,105 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<div class="user-playlist-container">
+    {% if playlist_data %}
+    {% for item in playlist_data %}
+
+    <div class="user-playlist-block">
+        <div class="playlist-cover">
+            <img src="{{ url_for('playlist.playlist_img', pl_id=item.id) }}" alt="{{ item.name }}" class="playlist-img"
+                 data-input-id="file-input-{{ item.id }}">
+
+            <div class="playlist-title-wrapper">
+                <div class="playlist-title-text" data-form-id="name-form-{{ item.id }}">
+                    {{ item.name }}
+                </div>
+
+                <form id="name-form-{{ item.id }}"
+                      action="{{ url_for('playlist.change_user_pl_name', pl_id=item.id, name_pl=item.name) }}" method="post"
+                      class="name-change-form">
+                    <input type="text" name="name" class="name-input" value="{{ item.name }}" required
+                           style="display: none;">
+                </form>
+            </div>
+
+            <div class="alert-message" id="alert-{{ item.id }}">{{content_ln["music_pl_user"]["buttons"][0]}}</div>
+
+            <form class="cover-change-form" action="{{ url_for('playlist.change_user_pl_img', pl_id=item.id, name=item.name) }}"
+                  method="post" enctype="multipart/form-data">
+                <input id="file-input-{{ item.id }}" type="file" name="image" accept="image/*" class="upload-input"
+                       required style="display: none;">
+            </form>
+
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+</div>
+
+<div class="user-playlist-container-music">
+    {% if music_playlist %}
+    {% for item in music_playlist %}
+    <div class="music-card" data-id="{{ item.id }}" data-artist="{{ item.artist }}" data-name="{{ item.name }}">
+        <div class="user-playlist-music-block">
+            <div class="playlist-playpause-btn">
+                <button class="play-pause-btn">
+                    <img src="/static/images/play3.png" alt="Play">
+                </button>
+            </div>
+
+            <div class="user-playlist-block-image">
+                <img src="{{ url_for('content.get_image', datatype='music', item_id=item.id) }}" alt="{{ item.name }}">
+            </div>
+
+            <div class="user-playlist-block-details">
+                <div class="user-playlist-music-name"><a
+                        href="{{url_for('content.show_music', m_id=item.id, name=item.name| replace(' ', '_'))}}">{{ item.artist
+                    }} - {{ item.name }}</a></div>
+<!--                <div class="user-playlist-music-category">content_ln["music_pl_user"]["meta"][0]:  item.category </div>-->
+                <div class="user-playlist-music-duration">{{content_ln["music_pl_user"]["meta"][1]}}: {{ item.duration }}</div>
+            </div>
+
+            <form action="{{ url_for('playlist.remove_music_in_pl', pl_id=playlist_data[0]['id'], m_id=item.id, name=playlist_data[0]['name']) }}" method="post"
+                  class="remove-music-pl">
+                <input type="submit" value="x" class="remove-btn_l">
+            </form>
+
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% else %}
+<p></p>
+{% endif %}
+
+<br><br>
+
+<form action="{{ url_for('playlist.delete_pl_user', pl_id=playlist_data[0]['id'])}}" method="post" class="remove-playlist-user">
+    <input type="button" value='{{content_ln["music_pl_user"]["buttons"][3]}}' class="remove-btn" onclick="openModal()">
+</form>
+
+<div id="toast-remove" class="toast">
+    <div id="toast-animation-remove" class="toast-animation"></div>
+    <span id="toast-message-remove"></span>
+</div>
+
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <p>{{content_ln["music_pl_user"]["message"][0]}}</p>
+        <button class="confirm-btn" onclick="confirmDelete()">{{content_ln["music_pl_user"]["buttons"][1]}}</button>
+        <button class="cancel-btn" onclick="closeModal()">{{content_ln["music_pl_user"]["buttons"][2]}}</button>
+    </div>
+</div>
+
+<br><br><br><br><br><br>
+
+
+<script src="/static/js/music_pl_user/change_pl.js"></script>
+<script src="/static/js/music_pl_user/remove_pl.js"></script>
+
+
+{% endblock %}

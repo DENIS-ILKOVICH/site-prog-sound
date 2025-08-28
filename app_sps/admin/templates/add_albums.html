@@ -1,0 +1,111 @@
+{% extends 'index_admin.html' %}
+
+{% block content %}
+
+
+<div class="authors-page-container">
+    <div class="add-authors-container">
+        <form action="{{ url_for('admin.add_data_to_db', datatype='album', action='add') }}" method="POST" enctype="multipart/form-data">
+            <h2>Add album</h2>
+            <label for="artist">Album:</label>
+            <input type="text" name="name" required placeholder="Enter the album name">
+
+            <label for="author">Artist (ID):</label>
+            <input type="text" name="a_id" required placeholder="Enter the contractor ID">
+
+            <label for="date">Release date:</label>
+            <input type="text" name="album_date" required placeholder="Enter the release date">
+
+            <div class="custom-file-upload">
+                <label for="file-input" class="upload-label">
+                    <span id="file-name">Select an image</span>
+
+                </label>
+                <input id="file-input" type="file" name="image" accept="image/*" required hidden>
+            </div>
+            <img id="preview-image" alt="Image preview"/>
+
+
+            <button type="submit">Add</button>
+        </form>
+    </div>
+
+    <div class="authors-list-container">
+        <h2>List of albums</h2>
+        <form action="" method="post" class="authors-search">
+            <div class="search-wrapper">
+                <input type="text" name="name_album" placeholder="Find Album">
+                <div class="cancel-search">
+                    <a href="{{url_for('admin.albums', action='add')}}">×</a>
+                </div>
+            </div>
+        </form>
+        <div class="authors-list-block">
+            {% if albums_list %}
+            {% for item in albums_list %}
+            <div class="author-item">
+                <img width="80" height="80" src="{{ url_for('admin.get_image', datatype='album', item_id=item.id) }}">
+                <div>
+                    <p class="authors-name">{{ item.name }}</p>
+                    <p class="authors-id">ID: {{ item.id }}</p>
+                    <p class="authors-id">ID (artist): {{ item.author_id }}</p>
+                </div>
+                <form action="{{url_for('admin.remove_data', item_id=item.id, datatype='album', action='add')}}" method="post" class="authors-remove">
+                    <input type="submit" value="×">
+                </form>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    <div class="authors-list-container">
+        <h2>List of artists</h2>
+        <form action="" method="post" class="authors-search">
+            <div class="search-wrapper">
+                <input type="text" name="name_author" placeholder="Find Artist">
+                <div class="cancel-search">
+                    <a href="{{url_for('admin.albums', action='add')}}">×</a>
+                </div>
+            </div>
+        </form>
+        <div class="authors-list-block">
+            {% if authors_list %}
+            {% for item in authors_list %}
+            <div class="author-item">
+                <img width="80" height="80" src="{{ url_for('admin.get_image', datatype='author', item_id=item.id) }}">
+                <div>
+                    <p class="authors-name">{{ item.name }}</p>
+                    <p class="authors-id">ID: {{ item.id }}</p>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+<script>
+document.getElementById('file-input').addEventListener('change', function (event) {
+    const fileInput = event.target;
+    const fileName = document.getElementById('file-name');
+    const previewImage = document.getElementById('preview-image');
+
+    if (fileInput.files && fileInput.files[0]) {
+        fileName.textContent = fileInput.files[0].name;
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            previewImage.src = e.target.result;
+            previewImage.style.display = 'block';
+        };
+        reader.readAsDataURL(fileInput.files[0]);
+    } else {
+        fileName.textContent = 'Select an image';
+        previewImage.style.display = 'none';
+    }
+});
+
+</script>
+
+{% endblock %}
+

@@ -1,0 +1,48 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<div class="login-container">
+    <form action="{{url_for('auth.login')}}" method="post" class="login">
+        <h1 class="login-title">{{ content_ln['login']['headers'][0]}}</h1>
+        {{ form.hidden_tag() }}
+        <div class="login-form-group">
+            {{ form.mail.label(class_='') }}
+            {{ form.mail(class_='email-input') }}
+        </div>
+        <div class="login-form-group">
+            {{ form.psw.label(class_='') }}
+            {{ form.psw(class_='password-input') }}
+        </div>
+        <div class="login-form-group-checkbox">
+            {{ form.remember_me(class_='checkbox-input') }}
+            {{ form.remember_me.label(class_='checkbox-label') }}
+        </div>
+        <div class="login-form-group">
+            {{ form.submit(class_='submit-button', type='submit') }}
+        </div>
+        <div class="login-form-group-href">
+            <a href="{{url_for('auth.register')}}">{{ content_ln['login']['buttons'][0]}}</a>
+        </div>
+        <div class="login-form-group">
+            <a href="" class="google-login-btn"><img width="30"
+                                                                                  src="/static/images/google-icon.png">
+            </a>
+        </div>
+        <div class="flash-messages">
+            {% with flashed_message = get_flashed_messages(True) | first %}
+            {% if flashed_message %}
+            <div class="messagetxt {{ flashed_message[0] }}">{{ flashed_message[1] }}</div>
+            {% endif %}
+            {% endwith %}
+        </div>
+    </form>
+</div>
+
+<div id="overlay"></div>
+<div id="animation-container"></div>
+
+{% endblock %}
+
+
+

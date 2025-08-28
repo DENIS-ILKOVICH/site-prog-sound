@@ -1,0 +1,135 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<div class="centered-block">
+    <h2>{{content_ln["index"]["headers"][0]}}</h2>
+    <hr>
+</div>
+<div class="music-container-main-menu">
+    <div class="music-gap">
+        {% for item in content_ln["index"]["tags"] %}
+
+        {% if item.name == 'Электроника' or item.name == 'Electronics' %}
+        <div class="big-block big-electronic">
+            <a href="{{url_for('.show_music_category', category=item.name)}}">
+            <img src="{{ item.href }}" alt="{{ item.name }}" class="main-menu-img">
+            {% if item.description %}
+            <div class="description">{{ item.description }}</div>
+            {% endif %}
+            <div class="name-block-big">
+                <p>{{item.name}}</p>
+            </div>
+            </a>
+        </div>
+
+        {% elif item.name == 'Альтернативная музыка' or item.name == 'Alternative music' %}
+        <div class="big-block big-alter">
+            <a href="{{url_for('.show_music_category', category=item.name)}}">
+            <img src="{{ item.href }}" alt="{{ item.name }}" class="main-menu-img">
+            {% if item.description %}
+            <div class="description">{{ item.description }}</div>
+            {% endif %}
+            <div class="name-block-big">
+                <p>{{item.name}}</p>
+            </div>
+            </a>
+        </div>
+
+        {% else %}
+        <div class="small-block">
+            <a href="{{url_for('.show_music_category', category=item.name)}}">
+            <img src="{{ item.href }}" alt="{{ item.name }}" class="main-menu-img">
+            <div class="name-block-small">
+                <p>{{item.name}}</p>
+            </div>
+            </a>
+        </div>
+
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+
+<div class="centered-block">
+    <h2>{{content_ln["index"]["headers"][1]}}</h2>
+    <hr>
+</div>
+<div class="author-container-href">
+    {% if author %}
+    {% for item in author[:6] %}
+    <a href="{{ url_for('.show_author', a_id=item.id, name=item.name | replace(' ', '_')) }}" class="author-card-link">
+        <div class="author-card">
+            <img src="{{ url_for('.get_image', datatype='author', item_id=item.id) }}" alt="{{ item.name }}">
+            <p>{{ item.name }}</p>
+        </div>
+    </a>
+    {% endfor %}
+    <div class="author-href-main-page"><a href="{{url_for('.authors')}}">{{content_ln["index"]['buttons'][0]}}</a></div>
+    {% endif %}
+</div>
+
+
+<div class="centered-block">
+    <h2>{{content_ln["index"]["headers"][2]}}</h2>
+    <hr>
+</div>
+<div class="albums-container-href">
+    {% if albums %}
+    {% for item in albums[:6] %}
+    <a href="{{ url_for('.show_albums', al_id=item.id, name=item.name | replace(' ', '_')) }}" class="album-card-link">
+        <div class="album-card">
+            <img src="{{ url_for('.get_image', datatype='album', item_id=item.id) }}" alt="{{ item.name }}">
+            <p>{{ item.name }}</p>
+        </div>
+    </a>
+    {% endfor %}
+    <div class="album-href-main-page"><a href="{{url_for('.albums')}}">{{content_ln["index"]['buttons'][1]}}</a></div>
+    {% endif %}
+</div>
+
+
+<div class="centered-block">
+    <h2>{{content_ln["index"]["headers"][3]}}</h2>
+    <hr>
+</div>
+<div class="random_music-container-href">
+    {% if random_music %}
+    <div class="random-music-list">
+        {% for item in random_music %}
+        <div class="music-card" data-id="{{ item.id }}" data-artist="{{ item.artist }}" data-name="{{ item.name }}">
+            <div class="random-music-item">
+                <div class="random-music-play-pause-btn">
+                    <button class="play-pause-btn">
+                        <img src="/static/images/play3.png" alt="Play">
+                    </button>
+                </div>
+                <img class="random-music-img" src="{{ url_for('.get_image', datatype='music', item_id=item.id) }}" alt="{{ item.name }}">
+                <div class="random-music-info">
+                    <a href="{{ url_for('.show_music', m_id=item.id, name=item.name | replace(' ', '_')) }}"
+                       class="random-music-link">
+                        <div class="random_music-track-name">{{ item.artist }} - {{ item.name }}</div>
+                    </a>
+<!--                    <div class="random_music-track-category">content_ln['meta'][0]: item.category </div>-->
+                    <div class="random_music-track-duration">{{content_ln['meta'][1]}}: {{ item.duration }}</div>
+                </div>
+
+            </div>
+        </div>
+        {% endfor %}
+        <div class="random_music-href-main-page"><a href="{{url_for('.all_music')}}">{{content_ln["index"]['buttons'][2]}}</a></div>
+        <br>
+    </div>
+    {% endif %}
+</div>
+
+<br><br><br><br><br><br>
+
+<script src="/static/js/music_menu/category_anim.js"></script>
+<script src="/static/js/music_menu/author_anim.js"></script>
+<script src="/static/js/music_menu/album_anim.js"></script>
+<script src="/static/js/music_menu/randmusic_anim.js"></script>
+
+
+{% endblock %}

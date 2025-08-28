@@ -1,0 +1,289 @@
+{
+  "lang": "en",
+  "meta": [
+    "Genre",
+    "Duration",
+    "Enter",
+    "Playlist is empty",
+    "No playlists available",
+    "Create a playlist",
+    "Music",
+    "Playlist name",
+    "Create",
+    "Search"
+  ],
+  "sections": {
+    "home": "Home",
+    "music": "Music",
+    "performers": "Performers",
+    "albums": "Albums"
+  },
+  "index": {
+    "headers": [
+      "Interesting tags",
+      "Performers",
+      "Albums",
+      "Random music"
+    ],
+    "buttons": [
+      "All performers",
+      "All albums",
+      "All music"
+    ],
+    "tags": [
+      {
+        "name": "Electronics",
+        "description": "View a list of songs from the electronica genre.",
+        "href": "/static/images/music/electronic.png"
+      },
+      {
+        "name": "Hip-hop",
+        "href": "/static/images/music/hiphop.png"
+      },
+      {
+        "name": "Classic",
+        "href": "/static/images/music/classic.png"
+      },
+      {
+        "name": "Pop music",
+        "href": "/static/images/music/popmusic.png"
+      },
+      {
+        "name": "Jazz",
+        "href": "/static/images/music/jazz.png"
+      },
+      {
+        "name": "Alternative music",
+        "description": "View a list of songs from the alternative music genre.",
+        "href": "/static/images/music/alter.png"
+      },
+      {
+        "name": "Punk rock",
+        "href": "/static/images/music/pank.png"
+      },
+      {
+        "name": "Rock",
+        "href": "/static/images/music/rock.png"
+      },
+      {
+        "name": "Heavy metal",
+        "href": "/static/images/music/heavymetal.png"
+      },
+      {
+        "name": "Rap",
+        "href": "/static/images/music/rap.png"
+      }
+    ]
+  },
+  "show_music_category": [],
+  "show_music": {
+    "headers": [
+      "Similar tracks by genre"
+    ],
+    "meta": [
+      "Release date",
+      "Duration",
+      "Listens",
+      "Genre",
+      "Album"
+    ],
+    "buttons": [
+      "Add to playlist",
+      "Add"
+    ]
+  },
+  "show_author": {
+    "headers": [
+      "Artist tracks"
+    ],
+    "meta": [
+      "Duration",
+      "First track",
+      "Best track",
+      "Best genre",
+      "Album",
+      "Albums"
+    ],
+    "buttons": []
+  },
+  "show_album": {
+    "headers": [
+      "Album tracks"
+    ],
+    "meta": [
+      "Release date",
+      "Author",
+      "Duration",
+      "Best track"
+    ],
+    "buttons": []
+  },
+  "authors": {
+    "headers": [
+      "Performers"
+    ]
+  },
+  "albums": {
+    "headers": [
+      "Albums"
+    ]
+  },
+  "all_music": {
+    "headers": [
+      "Music"
+    ]
+  },
+  "menu": [
+    {
+      "title": "Home",
+      "url": "content.index"
+    },
+    {
+      "title": "Login",
+      "url": "auth.login"
+    },
+    {
+      "title": "Logout",
+      "url": "auth.logout"
+    },
+    {
+      "title": "My playlists",
+      "url": "playlist.show_playlist_music"
+    }
+  ],
+  "menu_admin": [
+    {
+      "title": "Home",
+      "url": "admin.main"
+    },
+    {
+      "title": "Edit Music",
+      "url": "admin.music"
+    },
+    {
+      "title": "Edit Artists",
+      "url": "admin.authors"
+    },
+    {
+      "title": "Edit Albums",
+      "url": "admin.albums"
+    },
+    {
+      "title": "Add Music",
+      "url": "admin.music"
+    },
+    {
+      "title": "Add Artist",
+      "url": "admin.authors"
+    },
+    {
+      "title": "Add Albums",
+      "url": "admin.albums"
+    }
+  ],
+  "login": {
+    "headers": [
+      "Authorization"
+    ],
+    "buttons": [
+      "Create an account"
+    ],
+    "labels": [
+      "Email",
+      "Password",
+      "Remember me",
+      "Sign in"
+    ],
+    "messages": [
+      "Input error",
+      "Incorrect password or email",
+      "Incorrect email or password"
+    ]
+  },
+  "register": {
+    "headers": [
+      "Create an account"
+    ],
+    "labels": [
+      "Name",
+      "Email",
+      "Password",
+      "Confirm password"
+    ],
+    "buttons": [
+      "Create",
+      "Sign in"
+    ]
+  },
+  "music_pl_user": {
+    "buttons": [
+      "Change picture",
+      "Yes, delete",
+      "Cancel",
+      "Delete playlist"
+    ],
+    "meta": [
+      "Genre",
+      "Duration"
+    ],
+    "message": [
+      "Are you sure you want to delete this playlist?"
+    ]
+  },
+  "playlist_user": {
+    "headers": [
+      "My playlists"
+    ],
+    "message": [
+      "You don't have any playlists yet."
+    ]
+  },
+  "settings": {
+    "header": "Settings",
+    "subheadings": [
+      "Select Language"
+    ],
+    "buttons": [
+    ]
+  },
+  "create_playlist": {
+    "message": [
+      "Enter the name of the playlist.",
+      "Playlist successfully created!",
+      "There's been an error. Try again.",
+      "Error"
+    ]
+  },
+  "search_music": {
+    "message": [
+      "Nothing found."
+    ]
+  },
+  "auxiliary_data": {
+    "date": {
+      "months": [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+      ]
+    }
+  },
+  "errors_list": [
+    "All fields are required.",
+    "The name must contain at least 2 characters.",
+    "Invalid email.",
+    "The password must be at least 6 characters long.",
+    "The password must contain letters and numbers.",
+    "Passwords do not match."
+  ]
+}
+

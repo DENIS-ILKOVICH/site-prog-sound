@@ -1,0 +1,24 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<div class="centered-block">
+    <h2>{{ content_ln['authors']['headers'][0] }}</h2>
+    <hr>
+</div>
+<div class="author-full-container-href">
+    {% if author %}
+    {% for item in author %}
+    <a href="{{ url_for('.show_author', a_id=item.id, name=item.name) }}" class="author-full-card-link">
+        <div class="author-full-card">
+            <img src="{{ url_for('.get_image', datatype='author', item_id=item.id) }}" alt="{{ item.name }}">
+            <p>{{ item.name }}</p>
+        </div>
+    </a>
+    {% endfor %}
+    {% endif %}
+</div>
+
+<br><br><br><br><br><br>
+
+{% endblock %}

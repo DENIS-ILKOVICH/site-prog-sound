@@ -1,0 +1,24 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<div class="centered-block">
+    <h2>{{ content_ln['albums']['headers'][0] }}</h2>
+    <hr>
+</div>
+<div class="albums-full-container">
+    {% if albums %}
+    {% for item in albums %}
+    <a href="{{ url_for('.show_albums', al_id=item.id, name=item.name) }}" class="albums-full-card-link">
+        <div class="albums-full-card">
+            <img src="{{ url_for('.get_image', datatype='album', item_id=item.id) }}" alt="{{ item.name }}">
+            <p>{{ item.name }}</p>
+        </div>
+    </a>
+    {% endfor %}
+    {% endif %}
+</div>
+
+<br><br><br><br>
+
+{% endblock %}

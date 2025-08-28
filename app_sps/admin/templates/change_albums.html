@@ -1,0 +1,71 @@
+{% extends 'index_admin.html' %}
+
+{% block content %}
+
+<div class="music-list-container">
+    <h2>Edit albums</h2>
+    <form action="" method="post" class="authors-search">
+        <div class="search-wrapper">
+            <input type="text" name="name_album" placeholder="Find album:">
+            <div class="cancel-search">
+                <a href="{{url_for('admin.albums', action='update')}}">×</a>
+            </div>
+        </div>
+    </form>
+    <div class="music-list-block">
+        {% if albums %}
+        {% for item in albums %}
+        <div class="music-item">
+            <div class="music-image-wrapper">
+                <img id="image-{{ item.id }}" width="80" height="80" src="{{ url_for('admin.get_image', datatype='album', item_id=item.id) }}"
+                     style="cursor: pointer;">
+            </div>
+            <form id="form-{{ item.id }}" action="{{url_for('admin.update_data', item_id=item.id, datatype='album', action='update')}}" method="POST"
+                  enctype="multipart/form-data">
+                <input type="file" name="image" accept="image/*" required style="display: none;">
+            </form>
+            <div class="music-info">
+                <p class="music-name">{{ item.name }}</p>
+                <form action="{{url_for('admin.update_data', item_id=item.id, datatype='album', action='update')}}" method="POST" class="edit-music">
+                    <input type="text" name="album_name" placeholder="Edit">
+                </form>
+                <p class="music-text">Date: {{ item.date }}</p>
+                <form action="{{url_for('admin.update_data', item_id=item.id, datatype='album', action='update')}}" method="POST">
+                    <input type="text" name="album_date" placeholder="Edit">
+                </form>
+                <p class="music-text">ID: {{ item.id }}</p>
+                <p class="music-text">ID (artist): {{ item.author_id }}</p>
+                <form action="{{url_for('admin.update_data', item_id=item.id, datatype='album', action='update')}}" method="POST" class="edit-music">
+                    <input type="text" name="author_id" placeholder="Edit">
+                </form>
+            </div>
+            <form action="{{ url_for('admin.remove_data', item_id=item.id, datatype='album', action='update') }}" method="post" class="authors-remove">
+                <input type="submit" value="×">
+            </form>
+        </div>
+
+        {%endfor%}
+        {%endif%}
+
+    </div>
+</div>
+<br><br><br><br>
+
+
+<script>
+document.querySelectorAll('.music-image-wrapper img').forEach(imageElement => {
+    imageElement.addEventListener('click', function () {
+        const itemId = imageElement.id.split('-')[1];
+        const form = document.getElementById(`form-${itemId}`);
+        const fileInput = form.querySelector('input[type="file"]');
+        fileInput.click();
+        fileInput.addEventListener('change', function () {
+            if (fileInput.files.length > 0) {
+                form.submit();
+            }
+        });
+    });
+});
+
+</script>
+{% endblock %}

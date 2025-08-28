@@ -1,0 +1,36 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<div class="centered-block">
+    <h2>{{ content_ln['all_music']['headers'][0] }}</h2>
+    <hr>
+</div>
+
+<div class="music-container-category-list">
+    {% if music %}
+    {% for item in music %}
+    <div class="music-card" data-id="{{ item.id }}" data-artist="{{ item.artist }}" data-name="{{ item.name }}">
+        <div class="cart-music">
+            <a href="{{url_for('.show_music', m_id=item.id, name=item.name)}}"> <img
+                    src="{{ url_for('.get_image', datatype='music', item_id=item.id) }}" alt="Music cover"></a>
+            <div class="track-title">
+                <span>{{ item.artist }} - {{ item.name }}</span>
+            </div>
+            <div class="ctgr_play_btn">
+                <button class="play-pause-btn">
+                    <img src="/static/images/play3.png" alt="Play">
+                </button>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+</div>
+
+<br><br><br><br>
+
+
+<script src="/static/js/all_music/allmus_animation.js"></script>
+
+{% endblock %}

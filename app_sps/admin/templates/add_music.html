@@ -1,0 +1,147 @@
+{% extends 'index_admin.html' %}
+
+{% block content %}
+
+<div class="authors-page-container">
+    <div class="add-authors-container">
+        <form action="{{ url_for('admin.add_data_to_db', datatype='music', action='add') }}" method="POST" enctype="multipart/form-data">
+            <h2>Add music</h2>
+            <label for="category">Category:</label>
+            <input type="text" name="category" required placeholder="Enter category">
+
+            <label for="artist">Artist:</label>
+            <input type="text" name="artist" required placeholder="Enter the performer ">
+
+            <label for="title">Name:</label>
+            <input type="text" name="title" required placeholder="Enter the name">
+
+            <label for="date">Release:</label>
+            <input type="text" name="date_r" required placeholder="Enter the release date">
+
+            <label for="title">Album (ID):</label>
+            <input type="text" name="al_id" placeholder="Enter album ID">
+
+            <label for="duration">Duration:</label>
+            <input type="text" name="duration" required placeholder="Enter duration">
+
+            <label for="status">Status:</label>
+            <input type="number" name="status" required placeholder="Enter status">
+
+            <div class="custom-file-input">
+                <div class="file-upload-wrapper">
+                    <input type="file" id="file" name="file" accept=".mp3" required>
+                    <button type="button" class="upload-button-mp3">MP3 file</button>
+                </div>
+            </div>
+
+
+            <div class="custom-file-upload-music">
+                <label for="file-input" class="upload-label">
+                    <span id="file-name">Select an image</span>
+
+                </label>
+                <input id="file-input" type="file" name="image" accept="image/*" required hidden>
+            </div>
+            <img id="preview-image" alt="Image preview"/>
+
+            <button type="submit">Add music</button>
+        </form>
+    </div>
+
+    <div class="authors-list-container">
+        <h2>Music list</h2>
+        <form action="" method="post" class="authors-search">
+            <div class="search-wrapper">
+                <input type="text" name="name_music" placeholder="Find Music">
+                <div class="cancel-search">
+                    <a href="{{url_for('admin.music', action='add')}}">×</a>
+                </div>
+            </div>
+        </form>
+        <div class="authors-list-block">
+            {% if music_list %}
+            {% for item in music_list %}
+            <div class="author-item">
+                <img width="80" height="80" src="{{ url_for('admin.get_image', datatype='music', item_id=item.id) }}">
+                <div>
+                    <p class="authors-name">{{ item.name }}</p>
+                    <p class="authors-id">Date: {{ item.date }}</p>
+                    <p class="authors-id">ID: {{ item.id }}</p>
+                    <p class="authors-id">ID (album): {{ item.albums_id }}</p>
+                </div>
+                <form action="{{url_for('admin.remove_data', item_id=item.id, datatype='music', action='add')}}" method="post" class="authors-remove">
+                    <input type="submit" value="×">
+                </form>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    <div class="authors-list-container">
+        <h2>List of albums</h2>
+        <form action="" method="post" class="authors-search">
+            <div class="search-wrapper">
+                <input type="text" name="name_album" placeholder="Find Album">
+                <div class="cancel-search">
+                    <a href="{{url_for('admin.music', action='add')}}">×</a>
+                </div>
+            </div>
+        </form>
+        <div class="authors-list-block">
+            {% if album_list %}
+            {% for item in album_list %}
+            <div class="author-item">
+                <img width="80" height="80" src="{{ url_for('admin.get_image', datatype='album', item_id=item.id) }}">
+                <div>
+                    <p class="authors-name">{{ item.name }}</p>
+                    <p class="authors-id">ID: {{ item.id }}</p>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+<script>
+document.getElementById('file-input').addEventListener('change', function (event) {
+    const fileInput = event.target;
+    const fileName = document.getElementById('file-name');
+    const previewImage = document.getElementById('preview-image');
+
+    if (fileInput.files && fileInput.files[0]) {
+        fileName.textContent = fileInput.files[0].name;
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            previewImage.src = e.target.result;
+            previewImage.style.display = 'block';
+        };
+        reader.readAsDataURL(fileInput.files[0]);
+    } else {
+        fileName.textContent = 'Выберите изображение';
+        previewImage.style.display = 'none';
+    }
+});
+
+</script>
+<script>
+   document.querySelector('.upload-button-mp3').addEventListener('click', function () {
+    document.getElementById('file').click();
+});
+
+document.getElementById('file').addEventListener('change', function () {
+    const fileNameSpan = document.querySelector('.file-name');
+    if (this.files.length > 0) {
+        fileNameSpan.textContent = this.files[0].name;
+    } else {
+        fileNameSpan.textContent = 'No file selected';
+    }
+});
+
+</script>
+{% endblock %}
+
+
+
+
