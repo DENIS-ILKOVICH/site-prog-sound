@@ -131,14 +131,14 @@ A page where you can view all user playlists and see detailed information about 
 #### Add Data
 The administrator has access to pages for adding content: “Add Music,” “Add Album,” and “Add Artist.” Functional and user-friendly input forms have been implemented, and auxiliary search lists have been integrated for quick selection of artists, albums, and other related data, which greatly simplifies the process of filling the service with content.
 
-![Add Data](.assets/images/Add Data.png)
+![Add Data](.assets/images/add_data.png)
 <p align="center"><small><small><em>Image of the pages “Add music,” “Add artist,” and “Add album” 
 </em></small></small></p>
 
 #### Edit Data
 The “Edit Content” section. The administrator has access to editing pages such as “Edit Music,” “Edit Album,” and others. Functional and conveniently designed forms are implemented with the ability to change all key parameters.
 
-![Edit Data](.assets/images/Edit Data.png)
+![Edit Data](.assets/images/edit_data.png)
 <p align="center"><small><small><em>Image of the pages “Edit Music,” “Edit Artist,” and “Edit Album.”
 </em></small></small></p>
 
