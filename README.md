@@ -91,7 +91,7 @@ The main page consists of blocks such as interesting tags, artists, albums, and 
 ### Music & Artist & Album [⬆](#table-of-contents "Back to Top")
 By navigating from the main page to the “Music,” “Albums,” or “Artists” sections, users receive additional information and recommendations for similar content, which helps them discover new music.
 
-![Music & Artist & Album Interface](.assets/images/Music&Artist&Album.png)
+![Music & Artist & Album Interface](.assets/images/music&artist&album.png)
 <p align="center"><small><small><em>Image of the “Music,” “Artist,” and “Album” pages
  </em></small></small></p>
 
@@ -100,7 +100,7 @@ By navigating from the main page to the “Music,” “Albums,” or “Artists
 ### Account [⬆](#table-of-contents "Back to Top")
 A dynamic page with the option to register a new account or log in to an existing one — for personalized access, saving playlists, and managing music preferences.
 
-![Account](.assets/images/Login.png)
+![Account](.assets/images/login.png)
 <p align="center"><small><small><em>Image of the “Login” pages
  </em></small></small></p>
 
@@ -110,7 +110,7 @@ A dynamic page with the option to register a new account or log in to an existin
 A fixed navigation menu that is always available to users thanks to the site's layout, providing quick access to creating and viewing playlists, as well as convenient search for music, albums, and artists.
 
 <p align="center">
-  <img src=".assets/images/Menu options.png" alt="Menu Section">
+  <img src=".assets/images/menu_options.png" alt="Menu Section">
 </p>
 <p align="center"><small><small><em>Image of menu options 
  </em></small></small></p>
@@ -120,7 +120,7 @@ A fixed navigation menu that is always available to users thanks to the site's l
 ### Playlists Section [⬆](#table-of-contents "Back to Top")
 A page where you can view all user playlists and see detailed information about each one, including the cover art, title, and track list. Interactive editing is available: when you click on the title or image, you can change the cover art, rename the playlist, or delete it completely.
 
-![Playlists Section](.assets/images/Playlists.png)
+![Playlists Section](.assets/images/playlists.png)
 <p align="center"><small><small><em>Image of the “Playlists” and “Playlist (name)” pages
 </em></small></small></p>
 
@@ -333,6 +333,6 @@ Before running the project, make sure you have a `.env` file in the root directo
 
 ## Author [⬆](#table-of-contents "Back to Top")
 
-**Denys Ilkovych**  
-Developer and initiator of the **PricePredictor** project.
+**Denys Ilkovych**
+Developer and initiator of the **SiteProgSound** project.
 
