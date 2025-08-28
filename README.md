@@ -333,6 +333,6 @@ Before running the project, make sure you have a `.env` file in the root directo
 
 ## Author [⬆](#table-of-contents "Back to Top")
 
-**Denys Ilkovych**
+**Denys Ilkovych**  
 Developer and initiator of the **SiteProgSound** project.
 
