@@ -92,7 +92,7 @@ The main page consists of blocks such as interesting tags, artists, albums, and 
 By navigating from the main page to the “Music,” “Albums,” or “Artists” sections, users receive additional information and recommendations for similar content, which helps them discover new music.
 
 ![Music & Artist & Album Interface](.assets/images/Music&Artist&Album.png)
-<p align="center"><small><small><em>Image of the pages “Add music,” “Add artist,” and “Add album” 
+<p align="center"><small><small><em>Image of the “Music,” “Artist,” and “Album” pages
  </em></small></small></p>
 
 ---
@@ -139,7 +139,7 @@ The administrator has access to pages for adding content: “Add Music,” “Ad
 The “Edit Content” section. The administrator has access to editing pages such as “Edit Music,” “Edit Album,” and others. Functional and conveniently designed forms are implemented with the ability to change all key parameters.
 
 ![Edit Data](.assets/images/Edit Data.png)
-<p align="center"><small><small><em>Pages “Edit Music,” “Edit Artist,” and “Edit Album.”
+<p align="center"><small><small><em>Image of the pages “Edit Music,” “Edit Artist,” and “Edit Album.”
 </em></small></small></p>
 
 ---
@@ -279,6 +279,7 @@ SiteProgSound/
 ├── siteprogsound.db                 # Main SQLite database
 ├── .env                             # Environment variables
 ├── .gitignore                       # Git ignore file
+├── .gitattributes                   # Git attributes configuration (used with Git LFS for tracking large files >100MB)
 ├── config.py                        # Global configuration
 ├── database.py                      # Shared database init 
 ├── README.md                        # Project documentation
