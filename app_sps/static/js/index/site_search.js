@@ -1,15 +1,11 @@
-
-// Получаем ссылку на контейнер с результатами поиска
 const searchResultsContainer = document.getElementById('search-results-container');
 const searchInput = document.getElementById('search-input');
 
 searchInput.addEventListener('input', function() {
     let searchQuery = this.value.trim().toLowerCase();
 
-    // Получаем данные из элемента data-message-list
-    const messageList = JSON.parse(searchInput.getAttribute('data-message-list') || '[]'); // Преобразуем строку JSON в массив
+    const messageList = JSON.parse(searchInput.getAttribute('data-message-list') || '[]');
 
-    // Проверяем, что запрос не пустой
     if (searchQuery.length > 0) {
         fetch('/site_search', {
             method: 'POST',
@@ -21,13 +17,12 @@ searchInput.addEventListener('input', function() {
         .then(response => response.json())
         .then(data => {
             let resultsContainer = document.getElementById('search-results');
-            resultsContainer.innerHTML = '';  // Очищаем старые результаты
+            resultsContainer.innerHTML = '';
 
             if (data.length > 0) {
                 data.forEach(item => {
                     let itemHTML = '';
 
-                    // Формируем HTML для каждого элемента в зависимости от его типа
                     if (item.type === 'music') {
                         itemHTML = `
                             <a href="/show_music/${item.id}/${item.name.replace(' ', '_')}">
@@ -57,26 +52,24 @@ searchInput.addEventListener('input', function() {
                         `;
                     }
 
-                    resultsContainer.innerHTML += itemHTML; // Добавляем новый результат
+                    resultsContainer.innerHTML += itemHTML;
                 });
 
-                // Показываем блок с результатами
                 searchResultsContainer.classList.add('show');
             } else {
-                // Если ничего не найдено, добавляем данные из messageList
                 if (messageList.length > 0) {
                     resultsContainer.innerHTML = `<p class="no-results">${messageList}</p>`;
                 } else {
-                    resultsContainer.innerHTML = '<p class="no-results">Ничего не найдено.</p>';
+                    resultsContainer.innerHTML = '<p class="no-results">No results found.</p>';
                 }
                 searchResultsContainer.classList.add('show');
             }
         })
         .catch(error => {
-            console.error('Ошибка при поиске:', error);
+            console.error('Error during search:', error);
         });
     } else {
-        // Скрываем блок с результатами, если поле ввода пустое
         searchResultsContainer.classList.remove('show');
     }
 });
+

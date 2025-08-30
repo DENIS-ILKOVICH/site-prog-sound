@@ -12,10 +12,12 @@
   - [Home Page](#home-page)
   - [Music & Artist & Album](#music--artist--album-)
   - [Account](#account-)
-  - [Menu Section](#menu-section-)
   - [Playlists Section](#playlists-section-)
   - [Admin Panel Features](#admin-panel-features-)
 - [Architecture of the System](#architecture-of-the-system-)
+- [Available functionality](#available-functionality-)
+  - [Menu Section](#menu-section-)
+  - [Settings](#settings-)
 - [How to Run the Project](#how-to-run-the-project-)
 - [Author](#author-)
 
@@ -106,16 +108,6 @@ A dynamic page with the option to register a new account or log in to an existin
 
 ---
 
-### Menu Section [⬆](#table-of-contents "Back to Top")
-A fixed navigation menu that is always available to users thanks to the site's layout, providing quick access to creating and viewing playlists, as well as convenient search for music, albums, and artists.
-
-<p align="center">
-  <img src=".assets/images/menu_options.png" alt="Menu Section">
-</p>
-<p align="center"><small><small><em>Image of menu options 
- </em></small></small></p>
-
----
 
 ### Playlists Section [⬆](#table-of-contents "Back to Top")
 A page where you can view all user playlists and see detailed information about each one, including the cover art, title, and track list. Interactive editing is available: when you click on the title or image, you can change the cover art, rename the playlist, or delete it completely.
@@ -287,6 +279,30 @@ SiteProgSound/
 └── run.py                           # App entry point
 ```
 
+## Available functionality [⬆](#table-of-contents "Back to Top")
+
+### Menu Section 
+A fixed navigation menu that is always available to users thanks to the site's layout, providing quick access to creating and viewing playlists, as well as convenient search for music, albums, and artists.
+
+<p align="center">
+  <img src=".assets/images/menu_options.png" alt="Menu Section">
+</p>
+<p align="center"><small><small><em>Image of menu options 
+ </em></small></small></p>
+
+---
+
+### Settings [⬆](#table-of-contents "Back to Top")
+The **Settings** page provides convenient control over personal preferences and account options:  
+- **Language Switching:** Users can manually select the interface language from the list of available languages.  
+- **Account Management:** Ability to log in, log out, or enable automatic login.  
+- **Auto-Login Option:** Implemented with an intuitive slider-style toggle button (similar to a checkbox “Remember me”), allowing users to decide whether they want the system to remember their session.  
+- **Manual Control:** Users can easily customize and save their personal preferences.  
+
+![Settings](.assets/images/settings.gif)  
+<p align="center"><small><small><em>GIF image of the settings window</em></small></small></p>
+
+---
 
 ## How to Run the Project [⬆](#table-of-contents "Back to Top")
 

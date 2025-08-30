@@ -1,5 +1,3 @@
-
-// Подготовка данных из шаблона
 const images = [
     {% for album in albums %}
         {
@@ -19,41 +17,25 @@ function switchSlide() {
     const albumTitle = document.getElementById('album-title');
     const albumLink = document.getElementById('album-link');
 
-    // Проверка: если только один слайд, выход из функции
     if (images.length <= 1) return;
 
-    // Плавный эффект анимации
     slider.classList.add('transition');
-    albumTitle.classList.add('transition'); // Добавляем анимацию для названия
-
-    // Убираем возможность перехода по ссылке во время анимации
+    albumTitle.classList.add('transition');
     albumLink.style.pointerEvents = 'none';
 
-    // Обновление изображений
     setTimeout(() => {
         currentSlide = (currentSlide + 1) % images.length;
         mainImage.src = images[currentSlide].main;
 
-        // Обновление переключателя на следующий слайд
         const nextSlide = (currentSlide + 1) % images.length;
         switchImage.src = images[nextSlide].main;
 
-        // Обновление названия альбома
         albumTitle.textContent = images[currentSlide].name;
-
-        // Обновление ссылки на альбом
         albumLink.href = images[currentSlide].link;
 
-        // Сброс анимации
-        setTimeout(() => {
-            albumTitle.classList.remove('transition'); // Убираем анимацию из названия
-        }, 1000); // время анимации соответствует CSS
+        setTimeout(() => albumTitle.classList.remove('transition'), 1000);
         slider.classList.remove('transition');
 
-        // Включаем возможность клика по ссылке после завершения анимации
-        setTimeout(() => {
-            albumLink.style.pointerEvents = 'auto';
-        }, 1000); // Время анимации
-    }, 1000); // Время анимации
+        setTimeout(() => albumLink.style.pointerEvents = 'auto', 1000);
+    }, 1000);
 }
-

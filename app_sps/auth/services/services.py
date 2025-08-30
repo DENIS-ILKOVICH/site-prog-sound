@@ -187,3 +187,87 @@ def auto_login_pr():
         return {'error': 'An unexpected error occurred'}, 500
 
 
+def check_login_user(db):
+    """
+    Check if the current user is logged in and has an autologin token.
+
+    Args:
+        db: Database connection object.
+
+    Returns:
+        tuple: (dict, int) JSON response with status and message, HTTP status code.
+        - If user is authenticated and has an autologin token, returns success.
+        - If token is missing, returns 404.
+        - If user is not authorized, returns 401.
+        - If an unexpected error occurs, returns 500.
+    """
+    try:
+        if current_user.is_authenticated:
+            token = current_user.get_autologin()
+            if token:
+                return {'status': 'success', 'message': 'The user has autologin'}, 200
+
+            return {'status': 'failed', 'message': 'Token not found'}, 404
+        return {'status': 'failed', 'message': 'User is not authorized'}, 401
+
+    except Exception as e:
+        logger.log_error("Internal server error in services", stack_trace=str(e))
+        return {'error': 'An unexpected error occurred'}, 500
+
+def checkbox_autologin(req, db):
+    """
+    Enable or disable the autologin feature (remember me) for the current user.
+    Args:
+        req: Flask request object containing JSON data with 'status' key.
+        db: Database connection object.
+    Returns:
+        tuple: (Flask response, int) JSON response with success status and message, HTTP status code.
+        - If 'status' is '1', generates and sets a remember_token cookie.
+        - If 'status' is '0', removes the remember_token cookie.
+        - If user is not authenticated, returns 401.
+        - If request data is missing or invalid, returns 400.
+        - If an unexpected error occurs, returns 500.
+    """
+    try:
+        if not req:
+            return {}
+
+        data = req.get_json()
+        if not data:
+            return jsonify({"error": "Нет данных или неверный формат"}), 400
+
+        status = data.get("status")
+
+        userdb = Users(db)
+
+        if current_user.is_authenticated:
+            if status == '1':
+                token = userdb.generate_remember_token(
+                    current_app.secret_key,
+                    current_user.get_id()
+                )
+
+                response = make_response(jsonify({'success': True, 'message': 'Token installed'}))
+                expires = datetime.now() + timedelta(days=30)
+
+                response.set_cookie(
+                    'remember_token',
+                    token,
+                    expires=expires,
+                    httponly=True,
+                    samesite="Lax"
+                )
+                return response, 200
+
+            elif status == '0':
+                userdb.remember_token_none(current_user.get_id())
+
+                response = make_response(jsonify({'success': True, 'message': 'Token removed'}))
+                response.delete_cookie('remember_token')
+                return response, 200
+
+        return jsonify({'success': False,"message":'User is not authorized'}), 401
+
+    except Exception as e:
+        logger.log_error("Internal server error in services", stack_trace=str(e))
+        return {'error': 'An unexpected error occurred'}, 500

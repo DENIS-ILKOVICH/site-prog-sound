@@ -27,6 +27,10 @@ class UserLogin(UserMixin):
         """Return user's avatar or 'No avatar' if not set."""
         return self.__user['avatar'] if self.__user else 'No avatar'
 
+    def get_autologin(self):
+        """Return the user's autologin token as a string, or an empty string if not set."""
+        return str(self.__user['remember_token']) if self.__user['remember_token'] else ''
+
     def get_user(self):
         """Return all user data as dictionary."""
         return self.__user

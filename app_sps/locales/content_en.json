@@ -241,7 +241,8 @@
   "settings": {
     "header": "Settings",
     "subheadings": [
-      "Select Language"
+      "Language",
+      "Auto Login"
     ],
     "buttons": [
     ]

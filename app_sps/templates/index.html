@@ -106,58 +106,65 @@
                     <a href="{{ url_for(menu[1]['url']) }}" class="login-btn-mobile">{{ menu[1].title }}</a>
                 </div>
                 {% endif %}
-                <div class="settings" onclick="openModalSetting()">
-                    <img src="/static/images/gear5.png" width="35" height="35" alt="Настройки">
-                </div>
+<div class="settings" onclick="checkLanguageAndOpenModal()">
+    <img src="/static/images/gear5.png" width="35" height="35" alt="Настройки">
+</div>
 
-                <div class="modal-setting" id="settingsModal" onclick="closeModalSetting(event)">
-                    <div class="modal-content" onclick="event.stopPropagation();">
-                        <h3>{{content_ln["settings"]["header"]}}</h3>
+<div class="modal-setting" id="settingsModal" onclick="closeModalSetting(event)">
+  <div class="settings-content">
+    <h2 class="settings-title">{{content_ln["settings"]["header"]}}</h2>
+    <div class="divider"></div>
 
-                        <div class="setting-item">
-                            <h4>{{content_ln["settings"]["subheadings"][0]}}</h4>
-                            <div class="language-buttons">
-                                <img src="/static/images/ua.png" alt="Украiнська" class="lang-btn" data-lang="ua">
-                                <img src="/static/images/ru.png" alt="Русский" class="lang-btn" data-lang="ru">
-                                <img src="/static/images/en.png" alt="English" class="lang-btn" data-lang="en">
-                                <img src="/static/images/de.png" alt="Deutsch" class="lang-btn" data-lang="de">
-                            </div>
-                        </div>
+      <div class="settings-body">
+          <div class="settings-item">
+              <label for="language">{{content_ln["settings"]["subheadings"][0]}}</label>
+              <div id="languageSelector" class="lang-selector" style="position: relative; display: inline-block;">
+                  <img id="activeLangBtn" src="" alt="Active Language" class="lang-btn" style="cursor: pointer;">
+                  <div id="otherLangs" class="other-langs"><div class="lang-btn" data-lang="ua">
+                      <img src="/static/images/ua.png" alt="Українська">
+                      <span class="lang-name">Українська</span>
+                  </div><div class="lang-btn" data-lang="ru">
+                      <img src="/static/images/ru.png" alt="Русский">
+                      <span class="lang-name">Русский</span>
+                  </div><div class="lang-btn" data-lang="en">
+                      <img src="/static/images/en.png" alt="English">
+                      <span class="lang-name">English</span>
+                  </div><div class="lang-btn" data-lang="de">
+                      <img src="/static/images/de.png" alt="Deutsch">
+                      <span class="lang-name">Deutsch</span>
+                  </div>
+                  </div>
+              </div>
+          </div>
 
-                        <button class="close-btn"
-                                onclick="closeModalSetting({ target: document.getElementById('settingsModal') })">
-                            ⨉
-                        </button>
-                    </div>
-                </div>
+      <div class="settings-item">
+        <label for="autologin">{{content_ln["settings"]["subheadings"][1]}}</label>
+        <label class="switch-button">
+          <input type="checkbox" id="autologin" checked>
+          <span class="slider-button round"></span>
+        </label>
+      </div>
+    </div>
 
-                <script>
-                    function openModalSetting() {
-                        let modal = document.getElementById('settingsModal');
-                        modal.style.display = 'flex';
-                        setTimeout(() => modal.classList.add('show'), 10);
-                    }
+    <div class="divider"></div>
 
-                    function closeModalSetting(event) {
-                        let modal = document.getElementById('settingsModal');
-                        if (event.target === modal) {
-                            modal.classList.remove('show');
-                            setTimeout(() => modal.style.display = 'none', 300);
-                        }
-                    }
+      {%if current_user.is_authenticated%}
+            <div class="settings-footer">
+              <button class="btn-logout">Logout</button>
+            </div>
+      {%else%}
+              <div class="settings-footer">
+              <button class="btn-logout">Login</button>
+            </div>
+      {%endif%}
+  </div>
+</div>
 
-                </script>
-                <script>
-                    document.querySelectorAll('.lang-btn').forEach(function(button) {
-                        button.addEventListener('click', function() {
-                            const lang = button.getAttribute('data-lang');
-                            fetch(`/change_language/${lang}`, { method: 'GET' })
-                                setTimeout(() => {
-                               window.location.reload();
-                            }, 10);
-                        });
-                    });
-                </script>
+
+
+
+
+
             </div>
         </aside>
 
@@ -224,6 +231,8 @@
 </div>
 
 
+</body>
+
 <script src="/static/js/index/audio_player.js"></script>
 
 <script src="/static/js/index/login_animation.js"></script>
@@ -237,8 +246,7 @@
 
 <script src="/static/js/index/crpl_anm_json.js"></script>
 
-
-</body>
+<script src="/static/js/index/settings.js"></script>
 </html>
 
 

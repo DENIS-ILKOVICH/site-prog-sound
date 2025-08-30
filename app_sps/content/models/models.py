@@ -7,6 +7,7 @@ class Sound:
         self.__cur = db.cursor()
 
     # --------------------------------GET ALL DATA---------------------------------------------------------
+
     def get_all_music(self):
         """Return all music records."""
         try:

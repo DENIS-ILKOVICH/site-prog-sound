@@ -15,7 +15,6 @@ def index():
         logger.log_request(request)
 
         db = getattr(g, 'db', None)
-        print(request.cookies)
 
         lang = session.get('language', 'en')
         content_ln = load_language(lang)
@@ -141,6 +140,7 @@ def show_author(a_id, name):
 
     except Exception as e:
         logger.log_error("Internal Server Error", stack_trace=str(e))
+        print(e)
     raise
 
 
@@ -343,4 +343,17 @@ def language():
         logger.log_error("Internal Server Error", stack_trace=str(e))
     raise
 
+
+@content.route('/active-language')
+def activelanguage():
+    try:
+        logger.log_request(request)
+
+        response, status_code = get_language(request)
+        print(response, status_code)
+
+        return jsonify(response), status_code
+    except Exception as e:
+        logger.log_error("Internal Server Error", stack_trace=str(e))
+    raise
 

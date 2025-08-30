@@ -42,6 +42,7 @@ class Utils:
             if datatype == 'music':
                 audit = self.sound.get_count_music_auditions(item_id) or '0'
 
+
             if datatype == 'author':
                 author_name = self.sound.get_one_author(item_id)[0]['name']
                 author_music_id = self.sound.get_author_music_id(author_name)
@@ -58,6 +59,7 @@ class Utils:
                     for item in list(albums_id_list):
                         total += self.sound.get_count_music_auditions(item)
                     audit = str(total) if total > 0 else '0'
+
             return audit
         except Exception:
             return None
@@ -115,9 +117,12 @@ class Utils:
                 max_auditions = 0
                 for key, value in author_id_list.items():
                     auditions_value = self.sound.get_count_music_auditions(key)
-                    if max_auditions < auditions_value:
-                        best_track = {'id': key, 'name': value, 'auditions': auditions_value}
-                        max_auditions = auditions_value
+                    if auditions_value:
+                        if max_auditions < auditions_value:
+                            best_track = {'id': key, 'name': value, 'auditions': auditions_value}
+                            max_auditions = auditions_value
+                    else:
+                        best_track = {'id': None, 'name': None, 'auditions': None}
             return best_track
         except Exception:
             return None
@@ -139,8 +144,11 @@ class Utils:
             lang = session.get('language', 'en')
             if music:
                 for item in music:
-                    if best_track['id'] == item['id']:
-                        genre = item['category'] if lang == 'ru' else item[f'category_{lang}']
+                    if best_track['id']:
+                        if best_track['id'] == item['id']:
+                            genre = item['category'] if lang == 'ru' else item[f'category_{lang}']
+                    else:
+                        return None
             return genre.split(',')[0]
         except Exception:
             return None

@@ -30,13 +30,11 @@ document.addEventListener("DOMContentLoaded", () => {
     progressSlider.addEventListener("input", handleProgressSliderInput);
     progressSlider.addEventListener("change", handleProgressSliderChange);
 
-    // Обработчики карточек
     cards.forEach(card => {
         const playPauseBtn = card.querySelector(".play-pause-btn");
         playPauseBtn.addEventListener("click", () => handleCardClick(card));
     });
 
-    // Обработчики прогресса
     const progressContainer = document.querySelector('.progress-container');
     progressContainer.addEventListener('mouseenter', () => setProgressSliderStyle('8px', '#ccc'));
     progressContainer.addEventListener('mouseleave', () => setProgressSliderStyle('4px', '#ccc'));
@@ -47,13 +45,11 @@ document.addEventListener("DOMContentLoaded", () => {
             audio.volume = currentVolume;
         }
 
-        // Обновляем заливку слайдера
         const volumeFill = volumeSlider.querySelector('::before');
-        const fillWidth = currentVolume * 100; // Вычисляем ширину заливки (в процентах)
+        const fillWidth = currentVolume * 100;
         volumeSlider.style.setProperty('--volume-fill-width', `${fillWidth}%`);
     }
 
-    // Обновление заливки громкости
     function updateVolumeSliderFill() {
         const value = volumeSlider.value;
         volumeSlider.style.background = `linear-gradient(to right, #f5d78f 0%, #f5d78f ${value * 100}%, #555 ${value * 100}%, #555 100%)`;
@@ -120,13 +116,14 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    console.log('Прослушивание записано!');
+                    console.log('Audition recorded!');
                 }
             })
             .catch(error => {
-                console.error("Ошибка записи прослушивания:", error);
+                console.error("Error recording audition:", error);
             });
     }
+
 
     function formatTime(timeInSeconds) {
         if (isNaN(timeInSeconds)) return "00:00";

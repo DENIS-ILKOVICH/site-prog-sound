@@ -87,3 +87,33 @@ def auto_login():
     except Exception as e:
         logger.log_error("Internal Server Error", stack_trace=str(e))
     raise
+
+
+@auth.route('/check_autologin', methods=['POST', 'GET'])
+def check_autologin():
+    try:
+        logger.log_request(request)
+
+        db = getattr(g, 'db', None)
+        response, status_code = check_login_user(db)
+        print(response, status_code)
+
+        return jsonify(response), status_code
+    except Exception as e:
+        logger.log_error("Internal Server Error", stack_trace=str(e))
+    raise
+
+
+@auth.route('/autologin_checkbox', methods=['POST'])
+def autologin_checkbox():
+    try:
+        logger.log_request(request)
+
+        db = getattr(g, 'db', None)
+        response, status_code = checkbox_autologin(request, db)
+        print(response, status_code)
+
+        return response, status_code
+    except Exception as e:
+        logger.log_error("Internal Server Error", stack_trace=str(e))
+    raise

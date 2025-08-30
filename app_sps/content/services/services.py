@@ -227,7 +227,6 @@ def get_all_data_from_author(a_id, name, db):
 
         albums = sound.get_author_albums(a_id) if sound.get_author_albums(a_id) else []
         music = sound.get_author_music_id(name) if sound.get_author_music_id(name) else []
-
         auditions_data = utils.get_auditions('author', a_id)
         best_track = utils.best_track(music)
         best_genre = utils.best_genre(music, best_track)
@@ -254,6 +253,7 @@ def get_all_data_from_author(a_id, name, db):
         return {'error': 'Invalid input', 'details': str(e)}, 422
     except Exception as e:
         logger.log_error("Internal server error in services", stack_trace=str(e))
+        print(e)
         return {'error': 'An unexpected error occurred'}, 500
 
 

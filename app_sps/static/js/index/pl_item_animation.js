@@ -7,18 +7,18 @@
                 const songList = this.querySelector(".song-list");
 
                 if (songList.style.maxHeight === "0px" || !songList.style.maxHeight) {
-                    // Когда блок скрыт, показываем его с анимацией
-                    songList.style.display = "block";  // Убедимся, что блок отображается
-                    songList.offsetHeight;  // Принудительно перерисовываем элемент, чтобы анимация сработала
-                    songList.style.maxHeight = songList.scrollHeight + "px";  // Анимация раскрытия
-                    songList.style.opacity = 1;  // Плавное появление
+
+                    songList.style.display = "block";
+                    songList.offsetHeight;
+                    songList.style.maxHeight = songList.scrollHeight + "px";
+                    songList.style.opacity = 1;
                 } else {
-                    // Когда блок открыт, скрываем его с анимацией
+
                     songList.style.maxHeight = "0";
                     songList.style.opacity = 0;
                     setTimeout(() => {
-                        songList.style.display = "none";  // Скрываем блок после анимации
-                    }, 500);  // Время, равное длительности анимации
+                        songList.style.display = "none";
+                    }, 500);
                 }
             });
         });
