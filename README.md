@@ -16,7 +16,7 @@
   - [Admin Panel Features](#admin-panel-features-)
 - [Architecture of the System](#architecture-of-the-system-)
 - [Available functionality](#available-functionality-)
-  - [Menu Section](#menu-section-)
+  - [Playlist Management](#playlist-management)
   - [Settings](#settings-)
 - [How to Run the Project](#how-to-run-the-project-)
 - [Author](#author-)
@@ -85,7 +85,7 @@ screenshots of the web application.
 ### Home Page
 The main page consists of blocks such as interesting tags, artists, albums, and random music. This creates a visually appealing structure and provides convenient navigation, allowing users to easily discover new music.
 
-![Homepage Interface](.assets/images/home.png)
+![Homepage Interface](.assets/images/sp_1.png)
 <p align="center"><small><small><em>Image of the “Home” page</em></small></small></p>
 
 ---
@@ -93,7 +93,7 @@ The main page consists of blocks such as interesting tags, artists, albums, and 
 ### Music & Artist & Album [⬆](#table-of-contents "Back to Top")
 By navigating from the main page to the “Music,” “Albums,” or “Artists” sections, users receive additional information and recommendations for similar content, which helps them discover new music.
 
-![Music & Artist & Album Interface](.assets/images/music&artist&album.png)
+![Music & Artist & Album Interface](.assets/images/sp_2.png)
 <p align="center"><small><small><em>Image of the “Music,” “Artist,” and “Album” pages
  </em></small></small></p>
 
@@ -102,7 +102,7 @@ By navigating from the main page to the “Music,” “Albums,” or “Artists
 ### Account [⬆](#table-of-contents "Back to Top")
 A dynamic page with the option to register a new account or log in to an existing one — for personalized access, saving playlists, and managing music preferences.
 
-![Account](.assets/images/login.png)
+![Account](.assets/images/sp_3.png)
 <p align="center"><small><small><em>Image of the “Login” pages
  </em></small></small></p>
 
@@ -112,7 +112,7 @@ A dynamic page with the option to register a new account or log in to an existin
 ### Playlists Section [⬆](#table-of-contents "Back to Top")
 A page where you can view all user playlists and see detailed information about each one, including the cover art, title, and track list. Interactive editing is available: when you click on the title or image, you can change the cover art, rename the playlist, or delete it completely.
 
-![Playlists Section](.assets/images/playlists.png)
+![Playlists Section](.assets/images/sp_4.png)
 <p align="center"><small><small><em>Image of the “Playlists” and “Playlist (name)” pages
 </em></small></small></p>
 
@@ -123,14 +123,14 @@ A page where you can view all user playlists and see detailed information about 
 #### Add Data
 The administrator has access to pages for adding content: “Add Music,” “Add Album,” and “Add Artist.” Functional and user-friendly input forms have been implemented, and auxiliary search lists have been integrated for quick selection of artists, albums, and other related data, which greatly simplifies the process of filling the service with content.
 
-![Add Data](.assets/images/add_data.png)
+![Add Data](.assets/images/admin_1.png)
 <p align="center"><small><small><em>Image of the pages “Add music,” “Add artist,” and “Add album” 
 </em></small></small></p>
 
 #### Edit Data
 The “Edit Content” section. The administrator has access to editing pages such as “Edit Music,” “Edit Album,” and others. Functional and conveniently designed forms are implemented with the ability to change all key parameters.
 
-![Edit Data](.assets/images/edit_data.png)
+![Edit Data](.assets/images/admin_2.png)
 <p align="center"><small><small><em>Image of the pages “Edit Music,” “Edit Artist,” and “Edit Album.”
 </em></small></small></p>
 
@@ -281,14 +281,35 @@ SiteProgSound/
 
 ## Available functionality [⬆](#table-of-contents "Back to Top")
 
-### Menu Section 
-A fixed navigation menu that is always available to users thanks to the site's layout, providing quick access to creating and viewing playlists, as well as convenient search for music, albums, and artists.
+### Playlist Management
 
-<p align="center">
-  <img src=".assets/images/menu_options.png" alt="Menu Section">
-</p>
-<p align="center"><small><small><em>Image of menu options 
- </em></small></small></p>
+This section is designed for playlist management: users can create, edit, and delete playlists, as well as easily find tracks using dynamic search.
+
+1. #### Playlist Creation  
+Authorized users can create their own playlists with any custom name.
+
+![Creation](.assets/images/pl_menu_1.gif)  
+<p align="center"><small><small><em>GIF animation of creating a playlist</em></small></small></p>
+
+2. #### Adding Music
+Users can add tracks to newly created playlists
+
+![Adding](.assets/images/pl_menu_2.gif)  
+<p align="center"><small><small><em>GIF animation of adding music to a playlist</em></small></small></p>
+
+
+3. #### Deleting a Playlist
+Users can either remove individual tracks from a playlist or delete the entire playlist
+
+![Deleting](.assets/images/pl_menu_3.gif)  
+<p align="center"><small><small><em>GIF animation of deleting a playlist</em></small></small></p>
+
+4. #### Dynamic Search
+Real-time search allows users to find tracks, albums, or artists by typing just a few characters.
+
+![Search](.assets/images/pl_menu_4.gif)  
+<p align="center"><small><small><em>GIF animation of search in action</em></small></small></p>
+
 
 ---
 
@@ -300,7 +321,7 @@ The **Settings** page provides convenient control over personal preferences and 
 - **Manual Control:** Users can easily customize and save their personal preferences.  
 
 ![Settings](.assets/images/settings.gif)  
-<p align="center"><small><small><em>GIF image of the settings window</em></small></small></p>
+<p align="center"><small><small><em>GIF animation of the settings window</em></small></small></p>
 
 ---
 
