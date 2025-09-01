@@ -110,10 +110,14 @@ A dynamic page with the option to register a new account or log in to an existin
 
 
 ### Playlists Section [⬆](#table-of-contents "Back to Top")
-A page where you can view all user playlists and see detailed information about each one, including the cover art, title, and track list. Interactive editing is available: when you click on the title or image, you can change the cover art, rename the playlist, or delete it completely.
+A page where you can view all user playlists and see detailed information about each one, including the cover art, title, and track list. Interactive editing is available: when you click on the title or image, you can change the cover art, rename the playlist.
 
 ![Playlists Section](.assets/images/sp_4.png)
 <p align="center"><small><small><em>Image of the “Playlists” and “Playlist (name)” pages
+</em></small></small></p>
+
+![Playlists Section](.assets/images/ch_pl.gif)
+<p align="center"><small><small><em>GIF animation of playlist change
 </em></small></small></p>
 
 ---
